@@ -7,7 +7,7 @@ tav = {
     "plaetze"       : 0, #Plätze in der Taverne
     "pers_ungel": 0, #ungelerntes Personal
     "pers_geler": 0, #gelerntes Personal
-    "Pers_Profi": 0, #Professionelles Personal
+    "pers_Profi": 0, #Professionelles Personal
     "Lohn_ungel"    : 0.2, # Gehalt ungelerntes Personal pro Tag
     "Lohn_geler"    : 1.0,# Gehalt für gelerntes Personal
     "Lohn_Profi"    : 2.0, # Gehalt für Profis
@@ -22,14 +22,14 @@ tav = {
 }
 
 def calc_personal(taverne):
-    kosten_ungel = taverne["Pers_ungel"] * taverne["Lohn_ungel"]
-    kosten_geler = taverne["Pers_geler"] * taverne["Lohn_geler"]
-    kosten_profi = taverne["Pers_Profi"] * taverne["Lohn_Profi"]
+    kosten_ungel = taverne["pers_ungel"] * taverne["Lohn_ungel"]
+    kosten_geler = taverne["pers_geler"] * taverne["Lohn_geler"]
+    kosten_profi = taverne["pers_Profi"] * taverne["Lohn_Profi"]
     return kosten_geler + kosten_ungel + kosten_profi
 
 
-tav["Pers_ungel"] = 5
-tav["Pers_geler"] = 2
-tav["Pers_Profi"] = 0
+tav["pers_ungel"] = 5
+tav["pers_geler"] = 2
+tav["pers_Profi"] = 0
 
 print("Personalkosten: ",calc_personal(tav))
