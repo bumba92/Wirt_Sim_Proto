@@ -20,6 +20,8 @@ tav = {
     "Preis_Adel"    : 2.0  #Preis für nobles Essen und Getränke
 
 }
+from dice import roll
+
 
 def calc_personal(taverne):
     kosten_ungel = taverne["pers_ungel"] * taverne["Lohn_ungel"]
@@ -27,9 +29,27 @@ def calc_personal(taverne):
     kosten_profi = taverne["pers_Profi"] * taverne["Lohn_Profi"]
     return kosten_geler + kosten_ungel + kosten_profi
 
+def calc_gaeste(taverne):
+    arbeiter = roll(6, 2) + taverne["att_Arbeiter"]
+    buerger = roll(6, 1) + taverne["att_Buerger"]
+    reich = roll(4, 1) + taverne["att_reich"]
+    adel = roll(2, 1) + taverne["att_adel"]
+    return arbeiter, buerger, reich, adel
 
-tav["pers_ungel"] = 5
-tav["pers_geler"] = 2
-tav["pers_Profi"] = 0
+def calc_income(taverne, gaeste):
+    inc_arbeiter = gaeste[0]*taverne["Preis_Arbeiter"]
+    inc_buerger = gaeste[1]*taverne["Preis_Arbeiter"]
+    inc_reich = gaeste[2]*taverne["Preis_Reich"]
+    inc_adel = gaeste[3]*taverne["Preis_Adel"]
+    return inc_arbeiter + inc_buerger + inc_reich + inc_adel
 
-print("Personalkosten: ",calc_personal(tav))
+tav["pers_geler"] = 3
+
+gaeste = calc_gaeste(tav)
+einnahmen = calc_income(tav,gaeste)
+personalkosten = calc_personal(tav)
+gewinn = einnahmen - personalkosten    
+print("======TagesÜbersicht======")
+print(f"Gäste:{gaeste[0]} Arbeiter, {gaeste[1]} Bürger, {gaeste[2]} Reiche, {gaeste[3]} Adelige")
+print(f"Einnahmen: {einnahmen}")
+print(f"Tagesgewinn: {gewinn}")
